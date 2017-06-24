@@ -31,6 +31,7 @@ exports.handler = (event, context, callback) => {
           callback('simpleParser error',null);
         } else {
           if (inbound_email.attachments.length == 0) {
+            console.log(inbound_email.from);
             var outbound_email_params = {
               Destination: {
                 BccAddresses: [], 
