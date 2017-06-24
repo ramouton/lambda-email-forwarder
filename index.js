@@ -6,6 +6,8 @@ exports.handler = (event, context, callback) => {
   var email_date = event.Records[0].ses.mail.commonHeaders.date;
   
   var email_message_id = event.Records[0].ses.mail.messageId;
+
+  console.log('Need to put in AWS SES send mail call');
   
   console.log(email_message_id);
   console.log(email_sender,email_date,email_subject);
