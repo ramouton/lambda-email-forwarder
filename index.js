@@ -2,6 +2,10 @@ exports.handler = (event, context, callback) => {
   var AWS = require('aws-sdk');
   var s3 = new AWS.S3();
   var ses = new AWS.SES();
+
+  if (event.keepalive) {
+    callback(null,{"alive":true});
+  }
   
   var inbound_email_s3_bucket = process.env.INBOUND_EMAIL_BUCKET;
   var outbound_forward_to_address = process.env.FORWARD_TO_EMAIL_ADDRESS;
@@ -17,7 +21,7 @@ exports.handler = (event, context, callback) => {
       console.log(err, err.stack);
       callback({"success":false},null);
     } else {
-      var rawEmail = data.Body;
+      var rawEmail = data.Body.toString('base64');
       console.log(rawEmail);
 
   
