@@ -1,0 +1,26 @@
+{
+  "name": "@ramouton/lambda-email-forwarder",
+  "description": "AWS Lambda Function Forward email received via Amazon SES",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Raymond A. Mouton <raymond_mouton@icloud.com>",
+  "contributors": [
+    "Raymond A. Mouton <raymond_mouton@icloud.com>"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ramouton/lambda-email-forwarder.git"
+  },
+  "scripts": {
+    "start": "node index.js"
+  },
+  "bugs": {
+    "url": "https://github.com/ramouton/lambda-email-forwarder/issues"
+  },
+  "homepage": "https://github.com/ramouton/lambda-email-forwarder#readme",
+  "license": "NONE",
+  "keywords": [],
+  "dependencies": {
+    "nodemailer": "^4.0.1"
+  }
+}
