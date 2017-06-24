@@ -1,4 +1,5 @@
 exports.handler = (event, context, callback) => {
+  var AWS = require('aws-sdk');
   
   var email_sender = event.Records[0].ses.mail.source;
   var email_subject = event.Records[0].ses.mail.commonHeaders.subject;

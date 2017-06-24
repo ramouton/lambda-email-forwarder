@@ -21,6 +21,6 @@
   "license": "NONE",
   "keywords": [],
   "dependencies": {
-    "nodemailer": "^4.0.1"
+    "aws-sdk": "^2.77.0"
   }
 }
