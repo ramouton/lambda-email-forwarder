@@ -31,7 +31,7 @@ exports.handler = (event, context, callback) => {
           callback('simpleParser error',null);
         } else {
           if (inbound_email.attachments.length == 0) {
-            console.log(inbound_email.from);
+//            console.log(inbound_email.from);
             var outbound_email_params = {
               Destination: {
                 BccAddresses: [], 
@@ -54,7 +54,7 @@ exports.handler = (event, context, callback) => {
                   Data: inbound_email.subject 
                 }
               }, 
-              ReplyToAddresses: [inbound_email.from[0].address], 
+              ReplyToAddresses: [inbound_email.from.value[0].address], 
               Source: outbound_source_address 
             };
             ses.sendEmail(outbound_email_params, function(err, outbound_email) {
