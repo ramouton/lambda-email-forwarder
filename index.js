@@ -1,11 +1,14 @@
 exports.handler = (event, context, callback) => {
-  var AWS = require('aws-sdk');
-  var s3 = new AWS.S3();
-  var ses = new AWS.SES();
 
   if (event.keepalive) {
     callback(null,{"alive":true});
   }
+
+  var AWS = require('aws-sdk');
+  var s3 = new AWS.S3();
+  var ses = new AWS.SES();
+
+  var simpleParser = require('mailparser').simpleParser;
   
   var inbound_email_s3_bucket = process.env.INBOUND_EMAIL_BUCKET;
   var outbound_forward_to_address = process.env.FORWARD_TO_EMAIL_ADDRESS;
@@ -19,13 +22,17 @@ exports.handler = (event, context, callback) => {
   s3.getObject(s3_read_params, function(err, data) {
     if (err) {
       console.log(err, err.stack);
-      callback({"success":false},null);
+      callback('s3 error',null);
     } else {
-      var rawEmail = data.Body.toString();
-      console.log(rawEmail);
-
-  
-      callback(null,{"success":true});
+      simpleParser(data.Body, (err, mail)=>{
+        if (err) {
+          console.log(err);
+          callback('simpleParser error',null);
+        } else {
+          console.log(mail);
+          callback(null,{"success":true});
+        }
+      });
     }
   });
 
