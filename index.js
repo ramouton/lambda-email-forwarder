@@ -21,7 +21,7 @@ exports.handler = (event, context, callback) => {
       console.log(err, err.stack);
       callback({"success":false},null);
     } else {
-      var rawEmail = data.Body.toString('base64');
+      var rawEmail = data.Body.toString();
       console.log(rawEmail);
 
   
