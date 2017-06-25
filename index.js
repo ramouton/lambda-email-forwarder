@@ -14,7 +14,12 @@ exports.handler = (event, context, callback) => {
   var outbound_source_address = process.env.SOURCE_EMAIL_ADDRESS;
   var outbound_forward_to_address = process.env.FORWARD_TO_EMAIL_ADDRESS;
   
-  var email_message_id = event.Records[0].ses.mail.messageId;
+  var email_message_id = null;
+  if (event.Records) {
+    email_message_id = event.Records[0].ses.mail.messageId;
+  } else {
+    callback('Invalid SES Call',null);
+  }
 
   var s3_read_params = {
     Bucket: inbound_email_s3_bucket,
