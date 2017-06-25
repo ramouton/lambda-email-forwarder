@@ -59,11 +59,12 @@ exports.handler = (event, context, callback) => {
               ReplyToAddresses: [inbound_email.from.value[0].address], 
               Source: outbound_source_address 
             };
+            console.log('Reply-To Address:' + inbound_email.from.value[0].address);
             ses.sendEmail(outbound_email_params, function(err, outbound_email) {
               if (err) {
                 console.log(err, err.stack);
               } else {
-                s3.deleteObject(params, function(err, kp_data) { 
+                s3.deleteObject(s3_read_params, function(err, kp_data) { 
                   if (err) {
                     console.log(err, err.stack);
                     callback('s3 error',null);
