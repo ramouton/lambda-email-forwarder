@@ -57,9 +57,10 @@ exports.handler = (event, context, callback) => {
                 }
               }, 
               ReplyToAddresses: [inbound_email.from.value[0].address], 
+              ReturnPath: outbound_source_address,
               Source: outbound_source_address 
             };
-            console.log('Reply-To Address:' + inbound_email.from.value[0].address);
+//            console.log('Reply-To Address:' + inbound_email.from.value[0].address);
             ses.sendEmail(outbound_email_params, function(err, outbound_email) {
               if (err) {
                 console.log(err, err.stack);
@@ -69,6 +70,7 @@ exports.handler = (event, context, callback) => {
                     console.log(err, err.stack);
                     callback('s3 error',null);
                   } else {
+                    console.log('Email Successfully processed');
                     callback(null,{"success":true});
                   }
                 });
