@@ -31,9 +31,6 @@ exports.handler = (event, context, callback) => {
           callback('simpleParser error',null);
         } else {
           if (inbound_email.attachments.length == 0) {
-            if (inbound_email.html === false) {
-              inbound_email.html = inbound_email.text;
-            }
             var outbound_email_params = {
               Destination: {
                 BccAddresses: [], 
@@ -60,7 +57,9 @@ exports.handler = (event, context, callback) => {
               ReturnPath: outbound_source_address,
               Source: outbound_source_address 
             };
-//            console.log('Reply-To Address:' + inbound_email.from.value[0].address);
+            if (inbound_email.html === false) {
+              delete outbound_email_params.Message.Body.Html;
+            }
             ses.sendEmail(outbound_email_params, function(err, outbound_email) {
               if (err) {
                 console.log(err, err.stack);
