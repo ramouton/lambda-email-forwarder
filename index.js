@@ -1,6 +1,7 @@
 exports.handler = (event, context, callback) => {
 
   if (event.keepalive) {
+    console.log('still alive');
     callback(null,{"alive":true});
   }
 
