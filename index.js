@@ -50,7 +50,7 @@ exports.handler = (event, context, callback) => {
                 }, 
                 Subject: {
                   Charset: "UTF-8", 
-                  Data: inbound_email.subject 
+                  Data: 'Fwd: '+ inbound_email.subject + ' <' + inbound_email.from.value[0].address + '>' 
                 }
               }, 
               ReplyToAddresses: [inbound_email.from.value[0].address], 
